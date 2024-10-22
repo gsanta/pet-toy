@@ -1,0 +1,30 @@
+version: 2.1
+orbs:
+  node: circleci/node@5.0.2
+jobs:
+  build_and_test:
+    docker:
+      - image: cimg/node:20.11.0
+        environment:
+          DATABASE_URL: postgresql://postgres@localhost/circle_test
+      - image: cimg/postgres:14.0
+        environment:
+          POSTGRES_USER: postgres
+    steps:
+      - checkout
+      - run:
+          command: npm install
+      - run:
+          command: npx prisma migrate deploy
+      - run:
+          command: npx prisma db seed
+      - run:
+          command: npm run test
+          name: Run tests
+      - run:
+          command: npm run build
+          name: Build app
+workflows:
+  build_and_test:
+    jobs:
+      - build_and_test

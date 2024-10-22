@@ -1,0 +1,78 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@/test/*": [
+        "./test/*"
+      ]
+    },
+    "outDir": "./build",
+    "typeRoots": [
+      "./node_modules/@types",
+      "src/client/type_definitions",
+      "test/client/support/matchers"
+    ],
+    "types": [
+      "node",
+    ],
+    "target": "es6",
+    "lib": [
+      "es6",
+      "dom"
+    ],
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "allowJs": true,
+    "jsx": "preserve",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    /* Turning this on is equivalent to enabling all of the strict mode family options */
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": true,
+    "allowUnreachableCode": false,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "useDefineForClassFields": true,
+    "noEmit": false,
+    "incremental": true,
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "files": [
+    "src/client/type_definitions/global.d.ts",
+  ],
+  "include": [
+    ".eslintrc.js",
+    "webpack.config.js",
+    "src/pages/**/*.tsx",
+    "src/pages/**/*.jsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/pages/app.tsx",
+    "src/pages/_app.js",
+    "engine/**/*.ts",
+    "engine/**/*.js",
+    "src/**/*.tsx",
+    ".next/types/**/*.ts",
+    "test/**/*.ts",
+    "prisma/seed/**/*.ts",
+    "cucumber.js"
+,   ],
+  "exclude": [
+    "node_modules"
+  ]
+}
