@@ -3,8 +3,8 @@ import Link from 'next/link';
 
 const Sidebar = () => {
   return (
-    <Box>
-      <Button as={Link} href="toys">
+    <Box padding="3">
+      <Button as={Link} href="toys" width="100%">
         Toys
       </Button>
     </Box>

@@ -11,19 +11,33 @@ datasource db {
 }
 
 model User {
-  id        Int        @id @default(autoincrement())
+  id        String     @id @default(uuid())
   email     String     @unique
   name      String?
   password  String?
   provider  String     @default("credentials")
+  reservations Reservation[]
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
 }
 
 model Toy {
-  id        Int        @id @default(autoincrement())
+  id        String     @id @default(uuid())
   name      String     @unique
   imageUrl  String 
+  reservations Reservation[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model Reservation {
+  id        Int        @id @default(autoincrement())
+  userId    String
+  user      User       @relation(fields: [userId], references: [id])
+  toyId     String
+  toy       Toy        @relation(fields: [toyId], references: [id])
+  from      DateTime
+  to        DateTime
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
 }

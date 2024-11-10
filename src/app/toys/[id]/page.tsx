@@ -8,7 +8,13 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   const toy = await prisma.toy.findUnique({
     where: {
-      id: Number(id),
+      id: id,
+    },
+  });
+
+  const reservations = await prisma.reservation.findMany({
+    where: {
+      toyId: toy?.id,
     },
   });
 
@@ -16,7 +22,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
     throw new Error('Not found');
   }
 
-  return <ToyDetails toy={toy} />;
+  return <ToyDetails reservations={reservations} toy={toy} />;
 };
 
 export default Page;
