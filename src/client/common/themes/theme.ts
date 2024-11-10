@@ -4,6 +4,8 @@ import { extendTheme } from '@chakra-ui/react';
 // import Button from './Button.theme';
 // import Tooltip from '../components/Tooltip.theme';
 import Dialog from './Dialog.theme';
+import BREAKPOINTS from '@/common/utils/breakpoints';
+import CalendarDay from '../components/Calendar/CalendarDay.theme';
 // import IconButton from './IconButton.theme';
 // import MenuTheme from './Menu.theme';
 // import Alert from './Alert.theme';
@@ -14,7 +16,15 @@ import Dialog from './Dialog.theme';
 // import { formLabelTheme } from './FormLabel.theme';
 // import { inputTheme } from './Input.theme';
 
+export const breakpoints = {
+  [BREAKPOINTS.base]: '0rem',
+  [BREAKPOINTS.small]: '53rem', // 848px
+  [BREAKPOINTS.medium]: '80rem', // 1280px
+  [BREAKPOINTS.large]: '101rem', // 1616px
+};
+
 const theme = extendTheme({
+  breakpoints,
   config: {
     initialColorMode: 'dark',
     useSystemColorMode: false,
@@ -52,6 +62,7 @@ const theme = extendTheme({
     // Tooltip,
     // Menu: MenuTheme,
     Modal: Dialog,
+    CalendarDay: CalendarDay,
     // FrameButton: FrameButtonTheme,
     // FormLabel: formLabelTheme,
     // Input: inputTheme,
@@ -61,6 +72,34 @@ const theme = extendTheme({
     // Form: FormControl,
     // FormLabel: formLabelTheme,
   },
+  // sizes: {
+  //   '4': '0.25rem',
+  //   '8': '0.5rem',
+  //   '12': '0.75rem',
+  //   '16': '1rem',
+  //   '20': '1.25rem',
+  //   '24': '1.5rem',
+  //   '32': '2rem',
+  //   '40': '2.5rem',
+  //   '48': '3rem',
+  //   '64': '4rem',
+  //   '96': '6rem',
+  //   '128': '8rem',
+  // },
+  // space: {
+  //   '2': '0.125rem',
+  //   '4': '0.25rem',
+  //   '6': '0.375rem',
+  //   '8': '0.5rem',
+  //   '12': '0.75rem',
+  //   '16': '1rem',
+  //   '24': '1.5rem',
+  //   '32': '2rem',
+  //   '48': '3rem',
+  //   '64': '4rem',
+  //   '96': '6rem',
+  //   '128': '8rem',
+  // },
 });
 
 export default theme;

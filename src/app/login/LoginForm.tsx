@@ -50,7 +50,7 @@ const LoginForm = () => {
         <AbsoluteCenter px="4">OR</AbsoluteCenter>
       </Box>
 
-      <Button colorScheme="blue" onClick={() => signIn('google')} width="100%">
+      <Button colorScheme="blue" onClick={() => signIn('google', { callbackUrl: '/' })} width="100%">
         Log in with google
       </Button>
 

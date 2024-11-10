@@ -1,8 +1,6 @@
 'use client';
 
-import { Avatar, Button, ButtonGroup, useDisclosure, useToast } from '@chakra-ui/react';
-import SignUpDialog from './SignUpDialog';
-import LoginDialog from './LoginDialog';
+import { Avatar, Button, ButtonGroup, Link, useDisclosure, useToast } from '@chakra-ui/react';
 import UserDialog from './UserDialog';
 import { signOut, useSession } from 'next-auth/react';
 
@@ -12,8 +10,6 @@ const UserSettings = () => {
 
   const isLoggedIn = session?.user?.email;
 
-  const { isOpen: isSignInDialogOpen, onOpen: onSignInDialogOpen, onClose: onSignInDialogClose } = useDisclosure();
-  const { isOpen: isSignUpDialogOpen, onOpen: onSignUpDialogOpen, onClose: onSignUpDialogClose } = useDisclosure();
   const { isOpen: isUserDialogOpen, onOpen: onUserDialogOpen, onClose: onUserDialogClose } = useDisclosure();
 
   const handleLogout = async () => {
@@ -44,16 +40,11 @@ const UserSettings = () => {
         </ButtonGroup>
       ) : (
         <ButtonGroup>
-          <Button size="sm" onClick={onSignInDialogOpen}>
-            Log in
-          </Button>
-          <Button size="sm" onClick={onSignUpDialogOpen}>
-            Sign up
+          <Button as={Link} colorScheme="orange" href="/login" size="sm">
+            Login
           </Button>
         </ButtonGroup>
       )}
-      <LoginDialog isOpen={isSignInDialogOpen} onClose={onSignInDialogClose} />
-      <SignUpDialog isOpen={isSignUpDialogOpen} onClose={onSignUpDialogClose} />
       <UserDialog isOpen={isUserDialogOpen} onClose={onUserDialogClose} />
     </>
   );

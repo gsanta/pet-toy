@@ -15,9 +15,9 @@ const useEmailLogin = ({ onClose }: UseEmailLoginProps) => {
   const { mutate, error, isPending } = useMutation<unknown, AxiosError<ServerError>, LoginSchema>({
     mutationFn: async ({ email, password }) => {
       const resp = await signIn('credentials', {
+        callbackUrl: '/',
         email,
         password,
-        redirect: false,
       });
       return resp;
     },
