@@ -1,7 +1,9 @@
 import { ReactNode, createContext, useCallback, useContext } from 'react';
-import { Box, BoxProps, Text, Tooltip, useMultiStyleConfig } from '@chakra-ui/react';
+import { Box, BoxProps, Text } from '@chakra-ui/react';
 import { addDays, getDaysInMonth, getISODay, isEqual, set, startOfDay, subMonths } from 'date-fns';
 import { useCalendarContext } from './Calendar.context';
+import { getDayStyle, getTextStyle } from './CalendarDay.theme';
+import { Tooltip } from '@/components/ui/tooltip';
 
 interface Context {
   onPreviousMonth: () => void;
@@ -52,14 +54,6 @@ const CalendarDayView = ({
   const dayStart = startOfDay(date).getTime();
   const isSelectable = selectable && !unavailable[dayStart];
 
-  const { day, text } = useMultiStyleConfig('CalendarDay', {
-    currentMonth,
-    preview,
-    selectable: isSelectable,
-    selection,
-    showOutsideDays,
-    today,
-  });
   const ariaProps: BoxProps = {};
 
   if (currentMonth) {
@@ -76,15 +70,31 @@ const CalendarDayView = ({
       <Box
         {...ariaProps}
         as="button"
-        disabled={!selectable}
         onClick={onClick}
         onFocus={onMouseEnter}
         onMouseEnter={onMouseEnter}
         role="option"
-        sx={day}
-        type="button"
+        css={getDayStyle({
+          currentMonth,
+          preview,
+          selectable: isSelectable,
+          selection,
+          showOutsideDays,
+          today,
+        })}
       >
-        <Text sx={text}>{children}</Text>
+        <Text
+          css={getTextStyle({
+            currentMonth,
+            preview,
+            selectable: isSelectable,
+            selection,
+            showOutsideDays,
+            today,
+          })}
+        >
+          {children}
+        </Text>
       </Box>
     </Tooltip>
   );

@@ -1,12 +1,12 @@
 'use client';
 
 import Calendar from '@/client/common/components/Calendar/Calendar';
-import { breakpoints } from '@/client/common/themes/theme';
+import { breakpoints } from '@/client/common/themes/system';
 import BREAKPOINTS from '@/common/utils/breakpoints';
+import { BreadcrumbCurrentLink, BreadcrumbRoot } from '@/components/ui/breadcrumb';
 import { ChevronRightIcon } from '@chakra-ui/icons';
-import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, Image } from '@chakra-ui/react';
+import { Box, BreadcrumbLink, Button, Image } from '@chakra-ui/react';
 import { Reservation, Toy } from '@prisma/client';
-import { subDays } from 'date-fns';
 import Link from 'next/link';
 import { useMemo } from 'react';
 
@@ -40,23 +40,17 @@ const ToyDetails = ({ reservations, toy }: ToyDetailsProps) => {
 
   return (
     <>
-      <Breadcrumb color="gray.700" padding="0.5rem" separator={<ChevronRightIcon color="gray.500" />}>
-        <BreadcrumbItem>
-          <BreadcrumbLink as={Link} href="/">
-            Home
-          </BreadcrumbLink>
-        </BreadcrumbItem>
+      <BreadcrumbRoot color="gray.700" padding="0.5rem" separator={<ChevronRightIcon color="gray.500" />}>
+        <BreadcrumbLink as={Link} href="/">
+          Home
+        </BreadcrumbLink>
 
-        <BreadcrumbItem>
-          <BreadcrumbLink as={Link} href="/toys">
-            Toys
-          </BreadcrumbLink>
-        </BreadcrumbItem>
+        <BreadcrumbLink as={Link} href="/toys">
+          Toys
+        </BreadcrumbLink>
 
-        <BreadcrumbItem isCurrentPage>
-          <BreadcrumbLink href="#">{toy.name}</BreadcrumbLink>
-        </BreadcrumbItem>
-      </Breadcrumb>
+        <BreadcrumbCurrentLink href="#">{toy.name}</BreadcrumbCurrentLink>
+      </BreadcrumbRoot>
       <Box
         flex="1"
         display="flex"

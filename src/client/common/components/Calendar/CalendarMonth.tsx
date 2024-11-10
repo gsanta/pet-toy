@@ -1,14 +1,5 @@
 import { createElement, Fragment, useCallback, useId, useMemo } from 'react';
-import {
-  Box,
-  Button,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  Text,
-} from '@chakra-ui/react';
+import { Box, Button, Text } from '@chakra-ui/react';
 import CalendarGrid from './CalendarGrid';
 import CalendarHeader, {
   DatePickerHeaderContent,
@@ -18,6 +9,7 @@ import CalendarHeader, {
 import CalendarDay, { CalendarDayContext } from './CalendarDay';
 import { addMonths, format, setYear, subMonths } from 'date-fns';
 import { ChevronRightIcon } from '@chakra-ui/icons';
+import { NumberInputField, NumberInputRoot } from '@/components/ui/number-input';
 
 const getShortWeekdayNames = () => {
   const weekdays = [];
@@ -62,32 +54,30 @@ const CalendarMonth = ({ controls, onMonthClick, onViewDateChange, viewDate }: C
       <CalendarHeader controls={controls} onNext={onNextMonth} onPrevious={onPreviousMonth}>
         <DatePickerHeaderPrevious label="previous month" />
         <DatePickerHeaderContent id={monthLabelId}>
-          <Button color="purple.10" flexShrink={0} onClick={onMonthClick} size="sm" variant="tertiary">
+          <Button color="purple.10" flexShrink={0} onClick={onMonthClick} size="sm" variant="ghost">
             {format(viewDate, 'LLLL')}
             <ChevronRightIcon />
           </Button>
-          <NumberInput
+          <NumberInputRoot
             aria-label="year"
             flexShrink={1}
             max={datePickerMaxYear}
             min={datePickerMinYear}
-            onChange={(_, year) => onViewDateChange(setYear(viewDate, year))}
+            onValueChange={({ valueAsNumber }: { valueAsNumber: number }) => {
+              onViewDateChange(setYear(viewDate, valueAsNumber));
+            }}
             value={format(viewDate, 'yyyy')}
             w="8rem"
           >
             <NumberInputField />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
-          </NumberInput>
+          </NumberInputRoot>
         </DatePickerHeaderContent>
         <DatePickerHeaderNext label="next month" />
       </CalendarHeader>
 
       <CalendarGrid alignItems="center" gridTemplateRows="2rem" justifyItems="center">
         {daysOfTheWeek.map((day) => (
-          <Text key={day} color="neutral.50" size="2" textTransform="capitalize">
+          <Text key={day} color="neutral.50" textStyle="md" textTransform="capitalize">
             {day}
           </Text>
         ))}

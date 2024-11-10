@@ -1,19 +1,22 @@
-import { background } from '@chakra-ui/styled-system';
 import type { CalendarDayViewProps } from './CalendarDay';
+
+type CalendarDayStyleProps = Partial<
+  Pick<CalendarDayViewProps, 'currentMonth' | 'preview' | 'selectable' | 'selection' | 'showOutsideDays' | 'today'>
+>;
 
 const borderRadii: Record<string, string> = {
   from: '0.5rem 0 0 0.5rem',
   incomplete: '0.5rem',
   to: '0 0.5rem 0.5rem 0',
 };
-function selectionBorder({ selection }: CalendarDayViewProps) {
+function selectionBorder({ selection }: CalendarDayStyleProps) {
   if (!selection || selection === 'between') {
     return {};
   }
   return { borderRadius: borderRadii[selection] };
 }
 
-function textStyle({ currentMonth, selectable, selection, today }: CalendarDayViewProps) {
+function textStyle({ currentMonth, selectable, selection, today }: CalendarDayStyleProps) {
   const endpoint = selection === 'from' || selection === 'to' || selection === 'incomplete';
 
   if (!selectable) {
@@ -47,7 +50,7 @@ function textStyle({ currentMonth, selectable, selection, today }: CalendarDayVi
   };
 }
 
-const buttonStyles = ({ currentMonth, preview, selectable, selection, today }: CalendarDayViewProps) => {
+const buttonStyles = ({ currentMonth, preview, selectable, selection, today }: CalendarDayStyleProps) => {
   const beingMoved = selection === preview;
 
   const baseStyles = {
@@ -117,38 +120,31 @@ const buttonStyles = ({ currentMonth, preview, selectable, selection, today }: C
   };
 };
 
-const CalendarDay = {
-  baseStyle(props: CalendarDayViewProps) {
-    const { selectable, today } = props;
+export const getDayStyle = (props: CalendarDayStyleProps) => {
+  const { selectable } = props;
 
-    return {
-      calendar: {
-        background: 'gray.800',
-        border: '1px solid orange',
-        boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.75)',
-      },
-      day: {
-        _focusVisible: {
-          boxShadow: 'none',
-          outline: 'none',
-        },
-        cursor: !selectable ? 'default' : undefined,
-        ...buttonStyles(props),
-        ...selectionBorder(props),
-      },
-      text: {
-        alignItems: 'center',
-        border: today ? '1.5px solid' : undefined,
-        borderRadius: '2',
-        display: 'flex',
-        height: '8',
-        justifyContent: 'center',
-        width: '10',
-        ...textStyle(props),
-      },
-    };
-  },
-  parts: ['day', 'selection'],
+  return {
+    _focusVisible: {
+      boxShadow: 'none',
+      outline: 'none',
+    },
+    cursor: !selectable ? 'default' : undefined,
+    ...buttonStyles(props),
+    ...selectionBorder(props),
+  };
 };
 
-export default CalendarDay;
+export const getTextStyle = (props: CalendarDayStyleProps) => {
+  const { today } = props;
+
+  return {
+    alignItems: 'center',
+    border: today ? '1.5px solid' : undefined,
+    borderRadius: '2',
+    display: 'flex',
+    height: '8',
+    justifyContent: 'center',
+    width: '10',
+    ...textStyle(props),
+  };
+};

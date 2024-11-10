@@ -1,11 +1,14 @@
+import { Avatar } from '@/components/ui/avatar';
 import Dialog, { DialogBody } from '../../common/components/Dialog';
 import api from '../../common/utils/api';
 import { usersPath } from '../../common/utils/routes';
-import { Avatar, Box, Button, ButtonGroup, FormControl, FormErrorMessage, Text } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useSession } from 'next-auth/react';
 import React from 'react';
+import { Field } from '@/components/ui/field';
+import { Button } from '@/components/ui/button';
 
 type UserDialogProps = {
   isOpen: boolean;
@@ -36,14 +39,13 @@ const UserDialog = ({ isOpen, onClose }: UserDialogProps) => {
         <Box display="flex" justifyContent="center" gap="1rem" alignItems="center">
           <Avatar name={data?.user?.email || ''} /> <Text maxW="200px">{data?.user?.email}</Text>
         </Box>
-        <ButtonGroup display="flex" justifyContent="space-around" marginTop="1rem">
-          <FormControl isInvalid={isDeleteUserError} width="initial">
-            <Button colorScheme="red" onClick={mutateDeleteUser} isLoading={isDeleteUserLoading}>
+        <Box display="flex" justifyContent="space-around" marginTop="1rem">
+          <Field errorText="Failed to delete user" isInvalid={isDeleteUserError} width="initial">
+            <Button colorScheme="red" onClick={mutateDeleteUser} loading={isDeleteUserLoading}>
               Delete account
             </Button>
-            <FormErrorMessage>Failed to delete user</FormErrorMessage>
-          </FormControl>
-        </ButtonGroup>
+          </Field>
+        </Box>
       </DialogBody>
     </Dialog>
   );

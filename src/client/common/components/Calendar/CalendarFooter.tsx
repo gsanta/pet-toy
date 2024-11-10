@@ -1,7 +1,7 @@
 import { DateRange } from './useDateRange';
 import { formatISO } from 'date-fns';
 import { useCalendarContext } from './Calendar.context';
-import { Box, Button, ButtonGroup, Text } from '@chakra-ui/react';
+import { Box, Button, Text } from '@chakra-ui/react';
 
 const CalendarFooter = ({
   mode,
@@ -37,7 +37,7 @@ const CalendarFooter = ({
           gridRow={styleGrid('2', '1')}
           onClick={() => onClear()}
           size="sm"
-          variant="tertiary"
+          variant="ghost"
           width="fit-content"
         >
           Clear
@@ -49,7 +49,7 @@ const CalendarFooter = ({
         gridColumn={styleGrid('1 / 4', '2')}
         gridRow="1"
         justifySelf="center"
-        size="2"
+        textStyle="md"
       >
         {mode === 'day' ? (
           selected?.from ? (
@@ -67,15 +67,15 @@ const CalendarFooter = ({
           </>
         )}
       </Text>
-      <ButtonGroup gridColumn={styleGrid('2 / 4', '3')} gridRow={styleGrid('2', '1')} justifyContent="end">
-        <Button onClick={onClose} size="sm" variant="secondary">
+      <Box gridColumn={styleGrid('2 / 4', '3')} gridRow={styleGrid('2', '1')} justifyContent="end">
+        <Button onClick={onClose} size="sm" variant="outline">
           Cancel
         </Button>
 
         <Button onClick={onApply} size="sm">
           Apply
         </Button>
-      </ButtonGroup>
+      </Box>
     </Box>
   );
 };

@@ -1,21 +1,13 @@
 import { ReactNode, useCallback, useEffect, useId, useRef, useState } from 'react';
-import {
-  Box,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  Text,
-  useMultiStyleConfig,
-} from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 import CalendarHeader, {
   DatePickerHeaderContent,
   DatePickerHeaderNext,
   DatePickerHeaderPrevious,
 } from './CalendarHeader';
 import { format } from 'date-fns';
-import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
+import { getDayStyle, getTextStyle } from './CalendarDay.theme';
+import { NumberInputField, NumberInputRoot } from '@/components/ui/number-input';
 
 const CalendarMonthItem = ({
   'aria-label': label,
@@ -32,11 +24,6 @@ const CalendarMonthItem = ({
   n: number;
   onClick: (n: number) => void;
 }) => {
-  const { day, text } = useMultiStyleConfig('CalendarDay', {
-    currentMonth: true,
-    selectable: true,
-    selection: selected ? 'incomplete' : undefined,
-  });
   return (
     <Box
       aria-label={label}
@@ -45,11 +32,25 @@ const CalendarMonthItem = ({
       id={id}
       onClick={() => onClick(n)}
       role="option"
-      sx={day}
-      type="button"
+      css={getDayStyle({
+        currentMonth: true,
+        selectable: true,
+        selection: selected ? 'incomplete' : undefined,
+      })}
       width="12"
     >
-      <Text sx={{ ...text, width: '12' }}>{children}</Text>
+      <Text
+        css={{
+          ...getTextStyle({
+            currentMonth: true,
+            selectable: true,
+            selection: selected ? 'incomplete' : undefined,
+          }),
+          width: '12',
+        }}
+      >
+        {children}
+      </Text>
     </Box>
   );
 };
@@ -89,27 +90,19 @@ const CalendarMonthSelector = ({
       <CalendarHeader onNext={onNextYear} onPrevious={onPreviousYear}>
         <DatePickerHeaderPrevious label="previous year" />
         <DatePickerHeaderContent>
-          <NumberInput
+          <NumberInputRoot
             aria-label="year"
             flexShrink={1}
             max={2100}
             min={1990}
-            onChange={(_, year) => {
-              setSelectedYear(year);
+            onValueChange={({ valueAsNumber }: { valueAsNumber: number }) => {
+              setSelectedYear(valueAsNumber);
             }}
             value={selectedYear}
             w="8rem"
           >
             <NumberInputField ref={yearRef} />
-            <NumberInputStepper>
-              <NumberIncrementStepper>
-                <ChevronUpIcon />
-              </NumberIncrementStepper>
-              <NumberDecrementStepper>
-                <ChevronDownIcon />
-              </NumberDecrementStepper>
-            </NumberInputStepper>
-          </NumberInput>
+          </NumberInputRoot>
         </DatePickerHeaderContent>
         <DatePickerHeaderNext label="next year" />
       </CalendarHeader>

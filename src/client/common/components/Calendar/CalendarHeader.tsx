@@ -31,13 +31,14 @@ export const DatePickerHeaderPrevious = ({ label }: { label: string }) => {
       aria-label={label}
       as="button"
       color="purple.10"
-      icon={<ChevronLeftIcon />}
       onClick={onPrevious}
       size="sm"
       type="button"
-      variant="tertiary"
+      variant="ghost"
       visibility={controls === 'right' ? 'hidden' : undefined}
-    />
+    >
+      <ChevronLeftIcon />
+    </IconButton>
   );
 };
 export const DatePickerHeaderNext = ({ label }: { label: string }) => {
@@ -46,12 +47,13 @@ export const DatePickerHeaderNext = ({ label }: { label: string }) => {
     <IconButton
       aria-label={label}
       color="purple.10"
-      icon={<ChevronRightIcon />}
       onClick={onNext}
       size="sm"
-      variant="tertiary"
+      variant="ghost"
       visibility={controls === 'left' ? 'hidden' : undefined}
-    />
+    >
+      <ChevronRightIcon />
+    </IconButton>
   );
 };
 

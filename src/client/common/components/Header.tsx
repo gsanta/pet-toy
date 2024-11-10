@@ -2,17 +2,24 @@
 import useResponsive from '@/common/hooks/useResponsive';
 // import SettingsPanel from '../../editor/components/settings/io/SettingsPanel';
 import UserSettings from '../../user/components/UserSettings';
-import { Box, IconButton } from '@chakra-ui/react';
-import { HamburgerIcon } from '@chakra-ui/icons';
+import {
+  Box,
+  Button,
+  DrawerBackdrop,
+  DrawerBody,
+  DrawerCloseTrigger,
+  DrawerContent,
+  DrawerRoot,
+  DrawerTrigger,
+  Link,
+} from '@chakra-ui/react';
 
 import React from 'react';
+import { FocusableElement } from '@chakra-ui/utils';
 
-type HeaderProps = {
-  onDrawerOpen(): void;
-};
-
-const Header = ({ onDrawerOpen }: HeaderProps) => {
+const Header = () => {
   const { isMobile } = useResponsive();
+  const btnRef = React.useRef<FocusableElement | null>(null);
 
   return (
     <Box
@@ -28,13 +35,30 @@ const Header = ({ onDrawerOpen }: HeaderProps) => {
       {/* <SettingsPanel /> */}
       <UserSettings />
       {isMobile && (
-        <IconButton
-          aria-label="Open sidebar menu"
-          colorScheme="orange"
-          icon={<HamburgerIcon />}
-          onClick={onDrawerOpen}
-          size="sm"
-        />
+        <DrawerRoot placement="end" finalFocusRef={btnRef}>
+          <DrawerBackdrop />
+          <DrawerTrigger asChild>
+            <Button variant="outline" size="sm">
+              Open
+            </Button>
+          </DrawerTrigger>
+          <DrawerContent>
+            <DrawerCloseTrigger />
+
+            <DrawerBody>
+              <Button as={Link} href="toys">
+                Toys
+              </Button>
+            </DrawerBody>
+          </DrawerContent>
+        </DrawerRoot>
+        // <IconButton
+        //   aria-label="Open sidebar menu"
+        //   colorScheme="orange"
+        //   icon={<HamburgerIcon />}
+        //   onClick={onDrawerOpen}
+        //   size="sm"
+        // />
       )}
     </Box>
   );

@@ -1,18 +1,17 @@
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalCloseButton,
-  ModalHeader,
-  usePrefersReducedMotion,
-  Text,
-  ModalBody,
-  ModalBodyProps,
+  DialogRoot as Modal,
+  DialogBackdrop as ModalOverlay,
+  DialogContent as ModalContent,
+  DialogCloseTrigger as ModalCloseButton,
+  DialogBody as ModalBody,
+  DialogBodyProps as ModalBodyProps,
   HStack,
-  ModalFooter,
-  ModalFooterProps,
-  ButtonGroup,
+  DialogFooter as ModalFooter,
+  DialogFooterProps as ModalFooterProps,
   HTMLChakraProps,
+  Box,
+  DialogHeader,
+  Text,
 } from '@chakra-ui/react';
 import React, { ReactNode } from 'react';
 import { BiX } from 'react-icons/bi';
@@ -47,32 +46,23 @@ export const DialogButtons = ({ children, ...rest }: DialogFooterProps) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     <ModalFooter paddingInline="2" {...(rest as any)}>
       <HStack justifyContent="end">
-        <ButtonGroup>{children}</ButtonGroup>
+        <Box>{children}</Box>
       </HStack>
     </ModalFooter>
   );
 };
 
 const Dialog = ({ children, isOpen, onClose, title, ...rest }: DialogProps) => {
-  const prefersReducedMotion = usePrefersReducedMotion();
-
   return (
-    <Modal
-      closeOnEsc={true}
-      closeOnOverlayClick={false}
-      isOpen={isOpen}
-      motionPreset={prefersReducedMotion ? 'none' : 'scale'}
-      onClose={onClose}
-      trapFocus={true}
-    >
+    <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       <ModalContent {...(rest as any)} bgColor="chakra-body-bg">
-        <ModalHeader>
+        <DialogHeader>
           <Text as="h1" color="gray.300" size="3" textTransform="uppercase">
             {title}
           </Text>
-        </ModalHeader>
+        </DialogHeader>
         <ModalCloseButton>
           <BiX size={30} />
         </ModalCloseButton>

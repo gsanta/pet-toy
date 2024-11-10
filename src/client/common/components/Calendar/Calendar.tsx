@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react';
-import { Box, Button, useMultiStyleConfig } from '@chakra-ui/react';
+import { Box, Button } from '@chakra-ui/react';
 import CalendarMonth from './CalendarMonth';
 import CalendarMonthSelector from './CalendarMonthSelector';
 import useDateRange, { DateRange } from './useDateRange';
@@ -13,8 +13,6 @@ export { useDateRange, DateRange };
 
 const Calendar = (props: CalendarProps) => {
   const { dayTooltip, mode, onApply, onClose, selectable, selected, unavailable = [] } = props;
-
-  const { calendar } = useMultiStyleConfig('CalendarDay');
 
   const { isMobile } = useResponsive();
   const today = startOfDay(Date.now());
@@ -92,7 +90,7 @@ const Calendar = (props: CalendarProps) => {
 
   return (
     <CalendarContext.Provider value={ctx}>
-      <Box padding="6" sx={{ ...calendar }}>
+      <Box padding="6" background="gray.800" border="1px solid orange" boxShadow="10px 10px 5px 0px rgba(0,0,0,0.75)">
         {isMonthSelector ? (
           <CalendarMonthSelector
             onMonthSelected={onMonthSelected}
@@ -128,7 +126,7 @@ const Calendar = (props: CalendarProps) => {
             )} */}
             {mode === 'day' && (
               <Box display="flex" justifyContent="space-around">
-                <Button onClick={() => handleSelect(new Date())} variant="tertiary">
+                <Button onClick={() => handleSelect(new Date())} variant="outline">
                   Today
                 </Button>
               </Box>
