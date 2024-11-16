@@ -15,6 +15,13 @@ const toySeeds: Toy[] = [
     imageUrl: 'toy-2',
     updatedAt: new Date(2024, 10, 10, 15),
   },
+  {
+    createdAt: new Date(2024, 10, 10, 15),
+    id: '1b34feb6-2bee-438e-85dd-d852c9015758',
+    name: 'Toy 3',
+    imageUrl: 'toy-3',
+    updatedAt: new Date(2024, 10, 10, 15),
+  },
 ];
 
 export default toySeeds;

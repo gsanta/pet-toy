@@ -3,6 +3,7 @@ import { AbsoluteCenter, Button as ChakraButton, Span, Spinner } from '@chakra-u
 import { forwardRef } from 'react';
 
 interface ButtonLoadingProps {
+  href?: string;
   loading?: boolean;
   loadingText?: React.ReactNode;
 }

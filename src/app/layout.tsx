@@ -21,11 +21,9 @@ const Content = ({ children }: { children: ReactNode }) => {
       gridTemplateColumns="250px 1fr"
       minH="100vh"
     >
-      <Box as="header" gridArea="header" id="header">
-        <Header />
-      </Box>
+      <Header />
       {!isMobile && (
-        <Box as="aside" gridArea="sidebar">
+        <Box as="aside" gridArea="sidebar" height="calc(100vh - 50px)" position="sticky" top="50px">
           <Sidebar />
         </Box>
       )}

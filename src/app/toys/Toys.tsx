@@ -17,16 +17,20 @@ const Toys = ({ toys }: ToysProps) => {
       display="flex"
       gap="4"
       flexDir={['column', 'row']}
+      flexWrap={['nowrap', 'wrap']}
       justifyContent="space-around"
       marginBlock="2rem"
       padding="4"
     >
       {toys.map((toy) => (
-        <Card.Root key={toy.id} maxW="800px" variant="elevated" padding="1rem">
-          <Card.Body>
+        <Card.Root key={toy.id} maxW="700px" variant="elevated" padding="1rem">
+          <Card.Body display="block">
             <Image
+              display="block"
               srcSet={`/toys/${toy.imageUrl}-800w.jpg 800w, /toys/${toy.imageUrl}-1440w.jpg 1440w`}
-              sizes={`(max-width: ${breakpoints[BREAKPOINTS.small]}) 480px, ${breakpoints[BREAKPOINTS.medium]}`}
+              sizes={`(max-width: ${breakpoints[BREAKPOINTS.small]}) 300px, ${breakpoints[BREAKPOINTS.medium]} 620px`}
+              width={['100%', '620px']}
+              height={['auto', '620px']}
             />
           </Card.Body>
           <Card.Footer>
